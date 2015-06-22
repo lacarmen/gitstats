@@ -1,12 +1,15 @@
 (ns github-language-stats.routes.github
   (:require [compojure.core :refer [defroutes GET]]
             [ring.util.http-response :refer :all]
-            [tentacles.repos :as r]))
+            [tentacles.repos :as r]
+            [environ.core :refer [env]]))
+
+(def auth (env :github-key))
 
 (defn get-user-repos [user]
   (loop [page 1
          repos []]
-    (let [result (r/user-repos user {:page page :per-page 100})]
+    (let [result (r/user-repos user {:page page :per-page 100 :auth auth})]
       (if (= 100 (count result))
         (recur (inc page)
                (into repos result))
@@ -21,7 +24,7 @@
 (defn get-language-stats [user]
   (let [repos (get-user-owned-repos user)]
     (try (->> repos
-              (map #(r/languages user %))
+              (map #(r/languages user % :auth auth))
               (apply merge-with +)
               ok)
          (catch Exception e
