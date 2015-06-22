@@ -1,0 +1,31 @@
+<html>
+  <head>
+      <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <title>Welcome to github-language-stats</title>
+  </head>
+  <body>
+    <div id="navbar"></div>
+    <div id="app">
+      <div class="spinner"></div>
+    </div>
+
+    <!-- scripts and styles -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.96.1/css/materialize.min.css">
+    {% style "/css/screen.css" %}
+
+    <script type="text/javascript">
+        var context = "{{servlet-context}}";
+    </script>
+    {% if dev %}
+      {% script "/js/out/goog/base.js" %}
+      {% script "/js/app.js" %}
+      <script type="text/javascript">goog.require("github_language_stats.app");</script>
+    {% else %}
+      {% script "/js/app.js" %}
+    {% endif %}
+  </body>
+</html>
+
+
+
+
