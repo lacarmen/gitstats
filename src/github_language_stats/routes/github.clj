@@ -4,12 +4,10 @@
             [tentacles.repos :as r]
             [environ.core :refer [env]]))
 
-(def auth (env :github-key))
-
 (defn get-user-repos [user]
   (loop [page 1
          repos []]
-    (let [result (r/user-repos user {:page page :per-page 100 :auth auth})]
+    (let [result (r/user-repos user {:page page :per-page 100 :auth (:github-key env)})]
       (if (= 100 (count result))
         (recur (inc page)
                (into repos result))
@@ -24,7 +22,7 @@
 (defn get-language-stats [user]
   (let [repos (get-user-owned-repos user)]
     (try (->> repos
-              (map #(r/languages user % :auth auth))
+              (map #(r/languages user % :auth (:github-key env)))
               (apply merge-with +)
               ok)
          (catch Exception e
