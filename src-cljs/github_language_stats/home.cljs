@@ -63,7 +63,7 @@
                      :placeholder "GitHub user"
                      :value       @user
                      :on-change   #(reset! user (input-val %))}]
-            [:input {:type        "text"
+            #_[:input {:type        "text"
                      :placeholder "Repository Name"
                      :value       @repo-name
                      :on-change   #(reset! repo-name (input-val %))}]
