@@ -28,7 +28,7 @@
                  [tentacles "0.3.0"]]
 
   :min-lein-version "2.0.0"
-  :uberjar-name "github-language-stats.jar"
+  :uberjar-name "gitstats.jar"
   :jvm-opts ["-server"]
 
   :main github-language-stats.core
