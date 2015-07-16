@@ -31,16 +31,12 @@
   :uberjar-name "github-language-stats.jar"
   :jvm-opts ["-server"]
 
-:env {:repl-port 7001}
-
   :main github-language-stats.core
 
   :plugins [[lein-ring "0.9.1"]
             [lein-environ "1.0.0"]
             [lein-ancient "0.6.5"]
             [lein-cljsbuild "1.0.6"]]
-  
-
   
   :ring {:handler github-language-stats.handler/app
          :init    github-language-stats.handler/init
@@ -95,4 +91,5 @@
          :repl-options {:init-ns github-language-stats.core}
          :injections [(require 'pjstadig.humane-test-output)
                       (pjstadig.humane-test-output/activate!)]
-         :env {:dev true}}})
+         :env {:dev true
+               :nrepl-port 7001}}})
